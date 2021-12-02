@@ -3,13 +3,18 @@ defmodule PokerHandEvaluator do
 
   alias PokerHandEvaluator.{Parser, Game, Combinations, Encoder}
 
+  @type hand_to_value :: {Game.cards(), Combinations.comparison_value()}
+
   @spec process(String.t()) :: String.t()
   def process(input) do
     {:ok, gamestate} = Parser.parse(input)
 
-    hand_values = Enum.map(gamestate.hands, &calculate_hand_value(gamestate, &1))
+    hands = gamestate.hands
+    values = Stream.map(hands, &calculate_hand_value(gamestate, &1))
 
-    Encoder.encode(gamestate.hands, hand_values)
+    hands_to_values = Enum.zip(hands, values)
+
+    Encoder.encode(hands_to_values)
   end
 
   defp calculate_hand_value(%Game{type: :texas_holdem} = game, hand) do

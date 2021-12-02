@@ -1,14 +1,14 @@
 defmodule PokerHandEvaluator.Encoder do
   @moduledoc false
 
-  alias PokerHandEvaluator.{Game, Combinations, Card}
+  alias PokerHandEvaluator.Card
+  alias __MODULE__.Grouper
 
-  @spec encode([Game.cards()], [Combinations.comparison_value()]) :: String.t()
-  def encode(hands, combination_values) do
-    hands
-    |> Stream.zip(combination_values)
+  @spec encode([PokerHandEvaluator.hand_to_value()]) :: String.t()
+  def encode(hands_to_values) do
+    hands_to_values
     |> Enum.sort_by(fn {_hand, value} -> value end)
-    |> group_equal()
+    |> Grouper.group_equal()
     |> Stream.map(&encode_element/1)
     |> Enum.join(" ")
   end
@@ -29,32 +29,4 @@ defmodule PokerHandEvaluator.Encoder do
   defp encode_card(card) do
     Card.Rank.to_string(card.rank) <> Card.Suit.to_string(card.suit)
   end
-
-  defp group_equal(enumerable) do
-    enumerable
-    |> Enum.reverse()
-    |> Enum.reduce([], &group_equal_add_element/2)
-  end
-
-  defp group_equal_add_element(element, [[hd | _tl] = equal_group | tail] = list) do
-    if equal_by(hd, element) do
-      [[element | equal_group] | tail]
-    else
-      [element | list]
-    end
-  end
-
-  defp group_equal_add_element(element, [hd | tl] = list) do
-    if equal_by(hd, element) do
-      [[element, hd] | tl]
-    else
-      [element | list]
-    end
-  end
-
-  defp group_equal_add_element(element, []) do
-    [element]
-  end
-
-  defp equal_by({_hand_1, value_1}, {_hand_2, value_2}), do: value_1 == value_2
 end
