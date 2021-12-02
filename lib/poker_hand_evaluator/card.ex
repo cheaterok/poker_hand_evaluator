@@ -3,9 +3,9 @@ defmodule PokerHandEvaluator.Card do
 
   alias __MODULE__.{Rank, Suit}
 
-  use DryStruct
+  require DryStruct
 
-  drystruct enforce: true do
+  DryStruct.defstruct enforce: true do
     field :rank, Rank.t()
     field :suit, Suit.t()
   end

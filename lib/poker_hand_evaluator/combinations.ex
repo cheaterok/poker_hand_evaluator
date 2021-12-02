@@ -5,8 +5,7 @@ defmodule PokerHandEvaluator.Combinations do
   alias __MODULE__.{SpecialCombinations, GroupCombinations}
 
   require TypeUnion
-
-  use DryStruct
+  require DryStruct
 
   @combinations ~w[
     high_card

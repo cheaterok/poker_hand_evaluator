@@ -4,15 +4,14 @@ defmodule PokerHandEvaluator.Game do
   alias PokerHandEvaluator.Card
 
   require TypeUnion
-
-  use DryStruct
+  require DryStruct
 
   @game_types ~w[texas_holdem omaha_holdem five_card_draw]a
   TypeUnion.type :type, @game_types
 
   @type cards() :: nonempty_list(Card.t())
 
-  drystruct enforce: true do
+  DryStruct.defstruct enforce: true do
     field :type, type()
     field :board_cards, cards(), enforce: false
     field :hands, [cards()]
