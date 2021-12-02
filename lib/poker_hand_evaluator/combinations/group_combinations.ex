@@ -3,7 +3,7 @@ defmodule PokerHandEvaluator.Combinations.GroupCombinations do
 
   alias PokerHandEvaluator.Game
 
-  use TypeUnion
+  require TypeUnion
 
   @groups [
     four_of_a_kind: [4],
@@ -13,7 +13,7 @@ defmodule PokerHandEvaluator.Combinations.GroupCombinations do
     pair: [2]
   ]
 
-  typeunion(:t, @groups |> Keyword.keys() |> Enum.reverse())
+  TypeUnion.type :t, @groups |> Keyword.keys() |> Enum.reverse()
 
   @typep group_description :: nonempty_list(pos_integer())
   @typep grouped_cards :: [{pos_integer(), Game.cards()}]

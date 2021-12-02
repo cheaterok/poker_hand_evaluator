@@ -3,11 +3,12 @@ defmodule PokerHandEvaluator.Game do
 
   alias PokerHandEvaluator.Card
 
-  use TypeUnion
+  require TypeUnion
+
   use DryStruct
 
   @game_types ~w[texas_holdem omaha_holdem five_card_draw]a
-  typeunion(:type, @game_types)
+  TypeUnion.type :type, @game_types
 
   @type cards() :: nonempty_list(Card.t())
 

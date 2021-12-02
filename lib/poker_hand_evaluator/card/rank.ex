@@ -1,14 +1,14 @@
 defmodule PokerHandEvaluator.Card.Rank do
   @moduledoc false
 
-  use TypeUnion
+  require TypeUnion
 
   @ranks ~w[2 3 4 5 6 7 8 9 T J Q K A]a
-  typeunion(:t, @ranks)
+  TypeUnion.type :t, @ranks
 
   ranks2values = Enum.with_index(@ranks, 1)
 
-  typeunion(:values, Keyword.values(ranks2values), :typep)
+  TypeUnion.typep :values, Keyword.values(ranks2values)
 
   @spec ranks() :: [t(), ...]
   def ranks, do: @ranks

@@ -1,10 +1,10 @@
 defmodule PokerHandEvaluator.Card.Suit do
   @moduledoc false
 
-  use TypeUnion
+  require TypeUnion
 
   @suits ~w[diamonds clubs hearts spades]a
-  typeunion(:t, @suits)
+  TypeUnion.type :t, @suits
 
   suits2strings = Enum.map(@suits, &{&1, &1 |> Atom.to_string() |> String.first()})
 

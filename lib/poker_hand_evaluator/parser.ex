@@ -3,14 +3,14 @@ defmodule PokerHandEvaluator.Parser do
 
   alias PokerHandEvaluator.{Game, Card}
 
-  use TypeUnion
+  require TypeUnion
 
   @parsing_errors ~w[
     invalid_game_type
     invalid_board_cards
     invalid_hands
   ]a
-  typeunion(:parsing_error, @parsing_errors)
+  TypeUnion.type :parsing_error, @parsing_errors
 
   @spec parse(String.t()) :: {:ok, Game.t()} | {:error, parsing_error()}
   def parse(input) do

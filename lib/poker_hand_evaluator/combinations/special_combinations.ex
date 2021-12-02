@@ -3,7 +3,7 @@ defmodule PokerHandEvaluator.Combinations.SpecialCombinations do
 
   alias PokerHandEvaluator.{Game, Card}
 
-  use TypeUnion
+  require TypeUnion
 
   @combinations ~w[
     low_straight
@@ -13,7 +13,7 @@ defmodule PokerHandEvaluator.Combinations.SpecialCombinations do
     straight_flush
   ]a
 
-  typeunion(:t, @combinations)
+  TypeUnion.type :t, @combinations
 
   @cards_in_combination 5
 

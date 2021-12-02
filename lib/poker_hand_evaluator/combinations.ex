@@ -4,7 +4,8 @@ defmodule PokerHandEvaluator.Combinations do
   alias PokerHandEvaluator.{Card, Game}
   alias __MODULE__.{SpecialCombinations, GroupCombinations}
 
-  use TypeUnion
+  require TypeUnion
+
   use DryStruct
 
   @combinations ~w[
@@ -20,7 +21,7 @@ defmodule PokerHandEvaluator.Combinations do
     low_straight_flush
     straight_flush
   ]a
-  typeunion(:t, @combinations)
+  TypeUnion.type :t, @combinations
 
   @opaque comparison_value :: {pos_integer(), [pos_integer()], [pos_integer(), ...]}
 
